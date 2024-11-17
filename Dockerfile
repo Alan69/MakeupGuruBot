@@ -8,7 +8,7 @@ WORKDIR /app
 COPY req.txt .
 
 # Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r req.txt
 
 # Copy the rest of your bot's code into the container
 COPY . .

@@ -314,6 +314,11 @@ def random_product(message):
 
     product = random.choice(products)
 
+    # Check if the image link is a full URL, if not, add "https:"
+    image_link = product['image_link']
+    if image_link.startswith("//"):
+        image_link = "https:" + image_link
+
     # Construct the product details message
     reply = f"**{product['name']}**\n"
     reply += f"Brand: {product['brand']}\n"
@@ -322,10 +327,11 @@ def random_product(message):
     reply += f"Product Link: {product['product_link']}\n"
 
     # Send the product image if available
-    if product['image_link']:
-        bot.send_photo(message.chat.id, product['image_link'], caption=reply)
+    if image_link:
+        bot.send_photo(message.chat.id, image_link, caption=reply)
     else:
         bot.reply_to(message, reply)
+
 
 # Schedule beauty tips to be sent daily at a specific time
 schedule.every().day.at("10:00").do(send_beauty_tip)
